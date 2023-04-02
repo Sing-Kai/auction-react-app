@@ -1,26 +1,40 @@
 import React from 'react';
-import logo from './logo.svg';
+import NavBar from './components/NavBar'
+import { Routes, Route, Navigate } from "react-router-dom";
 import './App.css';
+import AuctionPage from './pages/AuctionPage';
+import CreateAuctionsPage from './pages/CreateAuctionsPage';
+import LandingPage from './pages/LandingPage';
+import RequireAuth from './components/RequireAuth';
 
-function App() {
+const App = () => {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='bg-cyan-100'>
+      <NavBar/>
+      <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route
+        path="/auctions"
+        element={
+          <RequireAuth redirectTo="/">
+            <AuctionPage />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/bid"
+        element={
+          <RequireAuth redirectTo="/">
+            <CreateAuctionsPage />
+          </RequireAuth>
+        }
+      />
+    </Routes>
     </div>
   );
 }
+
+
 
 export default App;
